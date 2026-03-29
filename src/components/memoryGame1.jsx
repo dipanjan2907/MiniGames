@@ -27,7 +27,7 @@ function memoryGame1() {
       case "Hard":
         return digits * 1;
       case "Strict":
-        return Math.max(1, Math.floor(digits * 0.5));
+        return Math.max(1, Math.floor(digits * 0.67));
       default:
         return digits;
     }
@@ -36,8 +36,9 @@ function memoryGame1() {
   const startRound = (currentLevel, currentDiff) => {
     const digitCount = currentLevel * 2 + 2;
     const currentTimer = getTimerForDifficulty(digitCount, currentDiff);
-    const newNumbers = Array.from({ length: digitCount }, () =>
-      Math.floor(Math.random() * 100),
+    const newNumbers = Array.from(
+      { length: digitCount },
+      () => Math.floor(Math.random() * 90) + 10,
     );
 
     setNumbers(newNumbers);
@@ -64,9 +65,18 @@ function memoryGame1() {
   }, [timer, visible]);
 
   const handleInputChange = (value, index) => {
+    const numericValue = value.replace(/\D/g, "").slice(0, 2);
+
     const updated = [...userInput];
-    updated[index] = value;
+    updated[index] = numericValue;
     setUserInput(updated);
+
+    if (numericValue.length === 2 && index < numbers.length - 1) {
+      const nextInput = document.getElementById(`memory-input-${index + 1}`);
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
   };
 
   const checkAnswer = () => {
@@ -296,9 +306,25 @@ function memoryGame1() {
                 {numbers.map((_, index) => (
                   <input
                     key={index}
-                    type="number"
+                    id={`memory-input-${index}`}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={2}
                     value={userInput[index] || ""}
                     onChange={(e) => handleInputChange(e.target.value, index)}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "Backspace" &&
+                        !userInput[index] &&
+                        index > 0
+                      ) {
+                        const prevInput = document.getElementById(
+                          `memory-input-${index - 1}`,
+                        );
+                        if (prevInput) prevInput.focus();
+                      }
+                    }}
                     className="w-24 h-24 text-center text-3xl font-black 
                            rounded-2xl bg-white/5 backdrop-blur-xl 
                            border border-white/20 text-white 
