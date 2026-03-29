@@ -34,7 +34,7 @@ const GamesList = () => {
         {/* Soft gradient overlay to enhance visual depth */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-900/40 via-black/20 to-emerald-900/40 pointer-events-none" />
 
-        <div className="absolute top-0 left-0 w-full z-50 flex justify-start p-6">
+        <div className="absolute top-0 left-0 w-full z-50 flex justify-start p-6 gap-5">
           <button
             onClick={() => navigate("/")}
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-green-500/10 backdrop-blur-md border border-white/20 text-white hover:bg-green-400/20 hover:border-green-300/40 hover:text-green-200 transition-all duration-300 shadow-lg"
