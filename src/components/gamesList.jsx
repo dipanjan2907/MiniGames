@@ -19,6 +19,12 @@ const GamesList = () => {
       icon: "❌",
       desc: "Classic strategy challenge",
     },
+    {
+      name: "Flash Memory",
+      path: "/flash-memory",
+      icon: "⚡",
+      desc: "Speed-reading retention test",
+    },
   ];
 
   const gameSelector = (path) => {
