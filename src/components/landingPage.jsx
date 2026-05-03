@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PageTransition from "./pageTransition";
 import IndianFlag from "./indianFlag";
 
-// --- NEW: Floating Symbols Background Component ---
 const FloatingSymbols = () => {
-  // Collection of math, logic, and code symbols relevant to brain/memory games
   const symbols = [
     "+",
     "×",
@@ -88,22 +86,16 @@ const LandingPage = () => {
             Pardon the dust! This site is currently in active development. 🚧
           </p>
         </div>
-
-        {/* --- Background Layers --- */}
-        {/* 1. Base Ambient Globs */}
         <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-pink-600 rounded-full mix-blend-screen filter blur-[128px] opacity-40 animate-blob"></div>
         <div className="absolute top-1/3 -right-1/4 w-[500px] h-[500px] bg-cyan-600 rounded-full mix-blend-screen filter blur-[128px] opacity-40 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-1/4 left-1/3 w-[500px] h-[500px] bg-orange-700 rounded-full mix-blend-screen filter blur-[128px] opacity-40 animate-blob animation-delay-4000"></div>
 
-        {/* 2. Floating Symbols Layer */}
         <FloatingSymbols />
 
         {/* 3. Noise and Grid Textures (Kept on top of symbols to give them a screen-door effect) */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
-        {/* ------------------------- */}
 
-        {/* Main Content */}
         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl px-6 lg:px-8 mt-12 sm:mt-0 pointer-events-auto">
           <div className="flex gap-8 mb-6 mt-10" aria-hidden="true">
             <div
@@ -128,7 +120,22 @@ const LandingPage = () => {
 
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-lg font-medium text-slate-300/70 mb-4 shadow-xl">
-              Made with ❤️ in Bharat <IndianFlag />
+              Made with ❤️ in Bharat{" "}
+              <div className="w-6 h-4 rounded overflow-hidden shadow-lg border border-white/10">
+                <div className="h-1/3 bg-[#FF9933]"></div>
+
+                <div className="h-1/3 bg-white flex items-center justify-center relative">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-[0.5px] sm:w-[1px] h-full bg-[#06038D]"
+                      style={{ transform: `rotate(${i * 15}deg)` }}
+                    />
+                  ))}
+                </div>
+
+                <div className="h-1/3 bg-[#138808]"></div>
+              </div>
             </div>
 
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter sm:text-7xl font-outfit relative">
