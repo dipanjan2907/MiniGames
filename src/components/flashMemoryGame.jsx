@@ -46,6 +46,9 @@ const FlashMemoryGame = () => {
   const [isWaiting, setIsWaiting] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // NEW: State to trigger the error shake animation
+  const [shakeError, setShakeError] = useState(false);
+
   const inputRef = useRef(null);
 
   const modes = ["Normal", "Focus", "Hardcore"];
@@ -60,6 +63,7 @@ const FlashMemoryGame = () => {
   const startRound = () => {
     setUserInput("");
     setIsWaiting(false);
+    setShakeError(false);
     const newSeq = generateSequence(level, mode);
     setSequence(newSeq);
     setIsVisible(true);
@@ -73,10 +77,17 @@ const FlashMemoryGame = () => {
   };
 
   useEffect(() => {
-    if (!isVisible && !isWaiting && !gameOver && inputRef.current) {
+    // Keep focus unless we are showing an error shake
+    if (
+      !isVisible &&
+      !isWaiting &&
+      !gameOver &&
+      !shakeError &&
+      inputRef.current
+    ) {
       inputRef.current.focus();
     }
-  }, [isVisible, isWaiting, gameOver]);
+  }, [isVisible, isWaiting, gameOver, shakeError]);
 
   const checkAnswer = (e) => {
     e.preventDefault();
@@ -94,7 +105,11 @@ const FlashMemoryGame = () => {
         startRound();
       }, 800);
     } else {
-      setGameOver(true);
+      // Trigger the shake animation and delay the Game Over screen slightly
+      setShakeError(true);
+      setTimeout(() => {
+        setGameOver(true);
+      }, 500);
     }
   };
 
@@ -106,6 +121,7 @@ const FlashMemoryGame = () => {
     setGameOver(false);
     setIsWaiting(true);
     setIsTransitioning(false);
+    setShakeError(false);
   };
 
   if (gameOver) {
@@ -153,6 +169,20 @@ const FlashMemoryGame = () => {
 
   return (
     <PageTransition>
+      {/* Custom Shake Animation Styles */}
+      <style>
+        {`
+          @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+          }
+          .animate-shake {
+            animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+          }
+        `}
+      </style>
+
       <div className="min-h-screen flex flex-col items-center py-12 px-4 bg-slate-950 text-white overflow-x-hidden font-sans relative z-0">
         <BackButton />
 
@@ -160,7 +190,7 @@ const FlashMemoryGame = () => {
           <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-black"></div>
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-            
+
             <div
               className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/30 rounded-full blur-[120px] animate-pulse"
               style={{ animationDuration: "12s" }}
@@ -173,24 +203,29 @@ const FlashMemoryGame = () => {
           </div>
         )}
 
-        <div className="w-full max-w-4xl flex flex-wrap justify-center sm:justify-between items-center mb-8 px-4 gap-6 sm:gap-4 z-10">
-          <div className="flex flex-col items-center sm:items-start">
-            <span className="text-zinc-400 text-sm font-medium">Progress</span>
-            <span className="text-xl font-bold">Level {level}</span>
+        {/* UPDATED: Stats bar uses CSS Grid for better mobile responsiveness */}
+        <div className="w-full max-w-4xl grid grid-cols-3 items-center mb-8 px-4 z-10 gap-2">
+          <div className="flex flex-col items-start">
+            <span className="text-zinc-400 text-xs sm:text-sm font-medium">
+              Progress
+            </span>
+            <span className="text-lg sm:text-xl font-bold">Level {level}</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-zinc-400 text-sm font-medium">Combo</span>
+          <div className="flex flex-col items-center text-center">
+            <span className="text-zinc-400 text-xs sm:text-sm font-medium">
+              Combo
+            </span>
             <span
-              className={`text-xl font-black ${combo > 2 ? "text-cyan-400 animate-pulse drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : "text-zinc-300"}`}
+              className={`text-lg sm:text-xl font-black ${combo > 2 ? "text-cyan-400 animate-pulse drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : "text-zinc-300"}`}
             >
               {combo}x
             </span>
           </div>
-          <div className="flex flex-col items-center sm:items-end">
-            <span className="text-zinc-400 text-sm font-medium">
-              High Score: {highScore}
+          <div className="flex flex-col items-end">
+            <span className="text-zinc-400 text-xs sm:text-sm font-medium whitespace-nowrap">
+              Best: {highScore}
             </span>
-            <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400">
+            <span className="text-xl sm:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400">
               {score}
             </span>
           </div>
@@ -238,36 +273,46 @@ const FlashMemoryGame = () => {
             </button>
           ) : isVisible ? (
             <div className="animate-in zoom-in duration-200 fade-in flex items-center justify-center w-full px-4">
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-br from-white to-zinc-400 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] break-all text-center">
+              {/* UPDATED: Added font-mono, better mobile text sizing */}
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-mono tracking-wider text-transparent bg-clip-text bg-gradient-to-br from-white to-zinc-400 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] break-all text-center">
                 {sequence}
               </h2>
             </div>
           ) : (
             <form
               onSubmit={checkAnswer}
-              className="flex flex-col items-center gap-8 animate-in fade-in slide-in-from-bottom-8 duration-300 w-full max-w-2xl px-4"
+              className={`flex flex-col items-center gap-8 animate-in fade-in slide-in-from-bottom-8 duration-300 w-full max-w-2xl px-4 ${shakeError ? "animate-shake" : ""}`}
             >
+              {/* UPDATED: Added font-mono, mobile keyboard fixes, and conditional red styling on error */}
               <input
                 ref={inputRef}
                 type="text"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 placeholder="Type what you saw..."
-                className="w-full text-center text-2xl sm:text-3xl md:text-4xl font-black py-4 sm:py-6 px-3 sm:px-6 md:px-8
-                       rounded-2xl sm:rounded-3xl bg-white/5 backdrop-blur-xl 
-                       border border-white/20 text-white placeholder:text-white/20
-                       focus:outline-none focus:border-amber-400 focus:ring-4 
-                       focus:ring-amber-400/20 transition-all duration-300
-                       shadow-[0_8px_32px_rgba(0,0,0,0.3)] tracking-normal sm:tracking-wider md:tracking-widest"
                 autoComplete="off"
                 spellCheck="false"
+                autoCorrect="off"
+                autoCapitalize="none"
+                disabled={shakeError}
+                className={`w-full text-center text-2xl sm:text-3xl md:text-4xl font-black font-mono py-4 sm:py-6 px-3 sm:px-6 md:px-8
+                       rounded-2xl sm:rounded-3xl backdrop-blur-xl 
+                       border text-white placeholder:font-sans placeholder:font-semibold
+                       focus:outline-none focus:ring-4 transition-all duration-300
+                       shadow-[0_8px_32px_rgba(0,0,0,0.3)] tracking-wider
+                       ${
+                         shakeError
+                           ? "bg-rose-500/20 border-rose-500 text-rose-500 placeholder:text-rose-500/50"
+                           : "bg-white/5 border-white/20 placeholder:text-white/20 focus:border-amber-400 focus:ring-amber-400/20"
+                       }`}
               />
 
               <button
                 type="submit"
+                disabled={shakeError}
                 className="px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 
                        bg-white/10 hover:bg-white/20 border border-white/10 hover:border-white/30
-                       text-white hover:scale-[1.02] active:scale-95 flex items-center gap-2"
+                       text-white hover:scale-[1.02] active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
               >
                 VERIFY
                 <span className="text-zinc-400 text-sm ml-2">↵</span>
