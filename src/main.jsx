@@ -5,7 +5,7 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <>
-    <HashRouter>
+    <HashRouter basename={import.meta.env.VITE_BASE_PATH}>
       <App />
     </HashRouter>
   </>,
