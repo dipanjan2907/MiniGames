@@ -131,7 +131,7 @@ function memoryGame1() {
             <p className="text-2xl font-semibold text-zinc-300">
               Level Reached: <span className="text-white">{level}</span>
             </p>
-            <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-rose-500">
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               Score: {score}
             </p>
             <p className="text-sm text-zinc-400 mt-2">
@@ -141,10 +141,10 @@ function memoryGame1() {
 
           <button
             onClick={() => resetGame()}
-            className="mt-4 px-10 py-4 rounded-full bg-gradient-to-r from-rose-600 to-pink-600 
-                   hover:from-rose-500 hover:to-pink-500 transition-all duration-300 
-                   font-bold text-lg shadow-[0_0_20px_rgba(244,63,94,0.4)] 
-                   hover:shadow-[0_0_30px_rgba(244,63,94,0.6)] hover:scale-105 active:scale-95"
+            className="mt-4 px-10 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 
+                   hover:from-cyan-400 hover:via-blue-400 hover:to-purple-400 transition-all duration-300 
+                   font-bold text-lg shadow-[0_0_20px_rgba(59,130,246,0.4)] 
+                   hover:shadow-[0_0_30px_rgba(59,130,246,0.6)] hover:scale-105 active:scale-95"
           >
             Try Again
           </button>
@@ -180,7 +180,7 @@ function memoryGame1() {
           </div>
 
           <div className="text-center">
-            <h1 className="text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500">
+            <h1 className="text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500">
               Memory Game
             </h1>
             <p className="text-xl text-zinc-300">
@@ -193,22 +193,25 @@ function memoryGame1() {
               <button
                 key={diff}
                 onClick={() => selectDifficulty(diff)}
-                className="group relative inline-flex items-center justify-center px-16 py-6 rounded-3xl font-bold text-2xl overflow-visible transition-all duration-300 hover:scale-[1.05] active:scale-95 min-w-80"
+                className="group relative inline-flex items-center justify-center px-16 py-6 min-w-80 overflow-hidden rounded-sm border border-cyan-900/50 hover:border-cyan-400 shadow-[0_0_15px_rgba(8,145,178,0)] hover:shadow-[0_0_20px_rgba(8,145,178,0.4)] transition-all duration-300 active:scale-95"
               >
-                {/* Outer glow shadow */}
-                <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-r from-emerald-500 via-indigo-500 to-fuchsia-500 blur-xl opacity-40 group-hover:opacity-80 transition-opacity duration-500" />
+                {/* Base Dark Metal Plate */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-[#09090b]" />
+                
+                {/* Tech Scanline Texture */}
+                <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.5)_2px,rgba(0,0,0,0.5)_4px)]" />
 
-                {/* Animated Aurora Background */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-500/50 via-indigo-500/60 to-fuchsia-500/40 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Grainy Metal Texture */}
+                <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+                
+                {/* Hover Energy Glow */}
+                <div className="absolute inset-0 bg-cyan-500/0 group-hover:bg-cyan-500/10 transition-all duration-300" />
+                
+                {/* Sci-Fi Corner Accents */}
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Inner glass reflection */}
-                <div className="absolute inset-[2px] rounded-[20px] bg-[#09090b]/60 backdrop-blur-sm group-hover:bg-[#09090b]/40 transition-colors duration-300 z-0" />
-
-                {/* Highlight lines */}
-                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50 rounded-t-3xl z-10" />
-                <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-black/50 to-transparent opacity-50 rounded-b-3xl z-10" />
-
-                <span className="relative z-10 text-white tracking-widest font-black drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)] group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,1)] transition-all duration-300">
+                <span className="relative z-10 text-cyan-600 group-hover:text-cyan-300 tracking-[0.4em] font-black uppercase text-2xl drop-shadow-[0_0_8px_rgba(6,182,204,0)] group-hover:drop-shadow-[0_0_12px_rgba(6,182,204,0.8)] transition-all duration-300">
                   {diff}
                 </span>
               </button>
@@ -252,7 +255,7 @@ function memoryGame1() {
             <span className="text-zinc-400 text-sm font-medium">
               High Score: {highScore}
             </span>
-            <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-500">
+            <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
               {score}
             </span>
           </div>
@@ -260,7 +263,7 @@ function memoryGame1() {
 
         <div className="relative flex items-center bg-white/5 backdrop-blur-xl rounded-full p-1 border border-white/10 mb-12 shadow-2xl">
           <div
-            className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-white/15 border border-white/20 shadow-md transition-all duration-500 ease-out"
+            className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 shadow-md transition-all duration-500 ease-out"
             style={{
               width: "100px",
               left: `${difficulties.indexOf(difficulty) * 100 + 4}px`,
@@ -340,10 +343,10 @@ function memoryGame1() {
                 className="group relative inline-flex items-center justify-center px-12 py-4 rounded-2xl font-bold text-lg overflow-visible transition-all duration-300 hover:scale-[1.02] active:scale-95 mt-6"
               >
                 {/* Outer glow shadow */}
-                <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-emerald-500 via-indigo-500 to-fuchsia-500 blur-xl opacity-40 group-hover:opacity-80 transition-opacity duration-500" />
+                <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 blur-xl opacity-40 group-hover:opacity-80 transition-opacity duration-500" />
 
                 {/* Animated Aurora Background */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/50 via-indigo-500/60 to-fuchsia-500/40 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/50 via-blue-500/60 to-purple-600/40 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Inner glass reflection */}
                 <div className="absolute inset-[2px] rounded-[14px] bg-[#09090b]/60 backdrop-blur-sm group-hover:bg-[#09090b]/40 transition-colors duration-300 z-0" />

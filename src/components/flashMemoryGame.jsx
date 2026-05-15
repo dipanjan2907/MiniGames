@@ -142,7 +142,7 @@ const FlashMemoryGame = () => {
             <p className="text-2xl font-semibold text-zinc-300">
               Level Reached: <span className="text-white">{level}</span>
             </p>
-            <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400">
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-slate-400">
               Score: {score}
             </p>
             <p className="text-xl font-medium text-cyan-400 mt-1 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
@@ -155,10 +155,10 @@ const FlashMemoryGame = () => {
 
           <button
             onClick={() => resetGame()}
-            className="mt-4 px-10 py-4 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-600 
-                   hover:from-indigo-500 hover:via-purple-500 hover:to-emerald-500 transition-all duration-300 
-                   font-bold text-lg shadow-[0_0_20px_rgba(139,92,246,0.4)] 
-                   hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] hover:scale-105 active:scale-95"
+            className="mt-4 px-10 py-4 rounded-full bg-gradient-to-r from-cyan-700 via-blue-800 to-slate-900 
+                   hover:from-cyan-600 hover:via-blue-700 hover:to-slate-800 transition-all duration-300 
+                   font-bold text-lg text-white shadow-sm hover:shadow-md 
+                   hover:scale-[1.02] active:scale-95"
           >
             Try Again
           </button>
@@ -225,7 +225,7 @@ const FlashMemoryGame = () => {
             <span className="text-zinc-400 text-xs sm:text-sm font-medium whitespace-nowrap">
               Best: {highScore}
             </span>
-            <span className="text-xl sm:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400">
+            <span className="text-xl sm:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-slate-400">
               {score}
             </span>
           </div>
@@ -233,7 +233,7 @@ const FlashMemoryGame = () => {
 
         <div className="relative flex items-center bg-white/5 backdrop-blur-xl rounded-full p-1 border border-white/10 mb-12 shadow-2xl z-10">
           <div
-            className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-white/15 border border-white/20 shadow-md transition-all duration-500 ease-out"
+            className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-gradient-to-r from-cyan-700 via-blue-800 to-slate-900 shadow-md transition-all duration-500 ease-out"
             style={{
               width: "86px",
               left: `${modes.indexOf(mode) * 86 + 4}px`,
@@ -262,14 +262,9 @@ const FlashMemoryGame = () => {
           ) : isWaiting ? (
             <button
               onClick={startRound}
-              className="group relative inline-flex items-center justify-center px-8 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-black text-xl sm:text-2xl overflow-visible transition-all duration-300 hover:scale-[1.05] active:scale-95"
+              className="px-8 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-black text-xl sm:text-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95 bg-gradient-to-r from-cyan-700 via-blue-800 to-slate-900 hover:from-cyan-600 hover:via-blue-700 hover:to-slate-800 text-white shadow-sm hover:shadow-md tracking-widest"
             >
-              <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/80 via-purple-500/80 to-emerald-500/80 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-[2px] rounded-[22px] bg-[#09090b]/40 backdrop-blur-sm group-hover:bg-[#09090b]/20 transition-colors duration-300 z-0" />
-              <span className="relative z-10 text-white tracking-widest drop-shadow-md">
-                START ROUND
-              </span>
+              START ROUND
             </button>
           ) : isVisible ? (
             <div className="animate-in zoom-in duration-200 fade-in flex items-center justify-center w-full px-4">
@@ -311,11 +306,11 @@ const FlashMemoryGame = () => {
                 type="submit"
                 disabled={shakeError}
                 className="px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 
-                       bg-white/10 hover:bg-white/20 border border-white/10 hover:border-white/30
-                       text-white hover:scale-[1.02] active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
+                       bg-gradient-to-r from-cyan-700 via-blue-800 to-slate-900 hover:from-cyan-600 hover:via-blue-700 hover:to-slate-800
+                       text-white shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
               >
                 VERIFY
-                <span className="text-zinc-400 text-sm ml-2">↵</span>
+                <span className="text-white/70 text-sm ml-2">↵</span>
               </button>
             </form>
           )}
