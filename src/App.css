@@ -40,3 +40,42 @@
   box-shadow: 0 0 40px 8px rgba(168, 85, 247, 0.4);
   transform: translateY(-2px);
 }
+
+/* Chroma Clash – timer pulse (low time warning) */
+@keyframes timerPulse {
+  from {
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+    opacity: 0.9;
+  }
+  to {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.95);
+    opacity: 1;
+  }
+}
+
+/* Chroma Clash – combo message float & fade */
+@keyframes comboFloat {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-140%) scale(1.05);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-150%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-180%) scale(0.95);
+  }
+}
+
+/* Chroma Clash – correct answer pop */
+@keyframes correctPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}

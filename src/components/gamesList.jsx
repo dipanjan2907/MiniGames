@@ -25,7 +25,14 @@ const GamesList = () => {
       icon: "⚡",
       desc: "Speed-reading retention test",
     },
+    {
+      name: "Chroma Clash",
+      path: "/chroma-clash",
+      icon: "🎨",
+      desc: "Stroop effect color challenge",
+    },
   ];
+
 
   const gameSelector = (path) => {
     navigate(path);
