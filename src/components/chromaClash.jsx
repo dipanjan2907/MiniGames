@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "./pageTransition";
+import { renderPreset } from "./presets";
 
 // ─── CONSTANTS ──────────────────────────────────────────────────────────────────
 
@@ -30,7 +31,7 @@ const DIFF_CONFIG = {
     glow: "shadow-emerald-500/30",
     accent: "#22c55e",
     desc: "3 lives · No timer · TEXT COLOR only",
-    icon: "🌱",
+    icon: "sprout",
   },
   medium: {
     choices: 4,
@@ -42,7 +43,7 @@ const DIFF_CONFIG = {
     glow: "shadow-amber-500/30",
     accent: "#f97316",
     desc: "2 lives · Countdown timer · TEXT COLOR only",
-    icon: "🔥",
+    icon: "flame",
   },
   hard: {
     choices: 3,
@@ -54,16 +55,16 @@ const DIFF_CONFIG = {
     glow: "shadow-rose-500/30",
     accent: "#ef4444",
     desc: "No lives · Timer · All question types",
-    icon: "💀",
+    icon: "skull",
   },
 };
 
 const COMBO_MESSAGES = [
-  { at: 5,  msg: "Nice! 🎯" },
-  { at: 10, msg: "Awesome! 🔥" },
-  { at: 15, msg: "Amazing! ⚡" },
-  { at: 20, msg: "Insane! 🌀" },
-  { at: 30, msg: "Legendary! 👑" },
+  { at: 5,  text: "Nice!", icon: "target" },
+  { at: 10, text: "Awesome!", icon: "flame" },
+  { at: 15, text: "Amazing!", icon: "zap" },
+  { at: 20, text: "Insane!", icon: "swirl" },
+  { at: 30, text: "Legendary!", icon: "crown" },
 ];
 
 const SCREENS = { MENU: "menu", GAME: "game", OVER: "over" };
@@ -204,7 +205,7 @@ const TimerBar = ({ timeLeft, maxTime, isLow }) => {
   );
 };
 
-const ComboToast = ({ message, key: _key }) => (
+const ComboToast = ({ message, icon, key: _key }) => (
   <div
     className="absolute top-0 left-1/2 pointer-events-none"
     style={{
@@ -214,7 +215,7 @@ const ComboToast = ({ message, key: _key }) => (
     }}
   >
     <span
-      className="text-2xl font-black tracking-wide px-6 py-2 rounded-2xl border border-white/20"
+      className="flex items-center gap-2 text-2xl font-black tracking-wide px-6 py-2 rounded-2xl border border-white/20"
       style={{
         background: "rgba(255,255,255,0.12)",
         backdropFilter: "blur(16px)",
@@ -223,7 +224,7 @@ const ComboToast = ({ message, key: _key }) => (
         textShadow: "0 0 20px rgba(255,255,255,0.5)",
       }}
     >
-      {message}
+      {message} {renderPreset(icon, "w-6 h-6 inline")}
     </span>
   </div>
 );
@@ -397,7 +398,7 @@ const ChromaClash = () => {
           const trigger = [...COMBO_MESSAGES].reverse().find((c) => newStreak >= c.at && newStreak % (c.at === 5 ? 5 : c.at) === 0);
           const exactTrigger = COMBO_MESSAGES.find((c) => newStreak === c.at);
           if (exactTrigger) {
-            setComboMsg(exactTrigger.msg);
+            setComboMsg({ text: exactTrigger.text, icon: exactTrigger.icon });
             setComboKey((k) => k + 1);
             setTimeout(() => setComboMsg(null), 1400);
           }
@@ -507,7 +508,7 @@ const ChromaClash = () => {
                   {difficulty === key && (
                     <div className={`absolute inset-0 bg-gradient-to-r ${cfg.gradient} opacity-10 pointer-events-none`} />
                   )}
-                  <span className="text-3xl">{cfg.icon}</span>
+                  <span className="text-3xl text-white">{renderPreset(cfg.icon, "w-8 h-8")}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className={`font-bold text-base sm:text-lg ${difficulty === key ? "text-white" : "text-white/70"}`}>
@@ -561,7 +562,17 @@ const ChromaClash = () => {
             {/* Result card */}
             <div className="w-full p-6 sm:p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl mb-6">
               <div className="text-center mb-6">
-                <div className="text-6xl mb-3">{score > 0 ? (isNewHigh ? "🏆" : "🎮") : "💥"}</div>
+                <div className="flex justify-center mb-3">
+                  {score > 0 ? (
+                    isNewHigh ? (
+                      renderPreset("trophy", "w-16 h-16 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]")
+                    ) : (
+                      renderPreset("gamepad", "w-16 h-16 text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.5)]")
+                    )
+                  ) : (
+                    renderPreset("flame", "w-16 h-16 text-rose-500 drop-shadow-[0_0_15px_rgba(244,63,94,0.5)]")
+                  )}
+                </div>
                 <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>
                   {score > 0 ? "Game Over" : "Better Luck!"}
                 </h1>
@@ -717,7 +728,7 @@ const ChromaClash = () => {
             }}
           >
             {/* Combo toast */}
-            {comboMsg && <ComboToast message={comboMsg} key={comboKey} />}
+            {comboMsg && <ComboToast message={comboMsg.text} icon={comboMsg.icon} key={comboKey} />}
 
             <span
               className="select-none font-black tracking-widest px-6 text-center"
@@ -775,11 +786,17 @@ const ChromaClash = () => {
                   {/* Check/X icon */}
                   {answerState && isSelected && (
                     <span className="ml-auto relative z-10 text-lg">
-                      {answerState === "correct" ? "✓" : "✗"}
+                      {answerState === "correct" ? (
+                        renderPreset("check", "w-5 h-5 text-emerald-400")
+                      ) : (
+                        renderPreset("x", "w-5 h-5 text-rose-500")
+                      )}
                     </span>
                   )}
                   {answerState && !isSelected && isCorrectChoice && (
-                    <span className="ml-auto relative z-10 text-lg text-emerald-400">✓</span>
+                    <span className="ml-auto relative z-10 text-lg text-emerald-400">
+                      {renderPreset("check", "w-5 h-5 text-emerald-400")}
+                    </span>
                   )}
                 </button>
               );
