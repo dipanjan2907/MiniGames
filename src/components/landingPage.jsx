@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "./pageTransition";
 import IndianFlag from "./indianFlag";
+import { renderPreset } from "./presets";
 
 const FloatingSymbols = () => {
   const symbols = [
@@ -82,8 +83,8 @@ const LandingPage = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
           </span>
-          <p className="text-amber-200 text-xs sm:text-sm font-medium tracking-wide">
-            Pardon the dust! This site is currently in active development. 🚧
+          <p className="text-amber-200 text-xs sm:text-sm font-medium tracking-wide flex items-center gap-1.5">
+            Pardon the dust! This site is currently in active development. {renderPreset("construction", "w-4 h-4 text-amber-500 inline")}
           </p>
         </div>
         <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-pink-600 rounded-full mix-blend-screen filter blur-[128px] opacity-40 animate-blob"></div>
@@ -99,28 +100,28 @@ const LandingPage = () => {
         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl px-6 lg:px-8 mt-12 sm:mt-0 pointer-events-auto">
           <div className="flex gap-8 mb-6 mt-10" aria-hidden="true">
             <div
-              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-purple-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-purple-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg text-purple-400"
               style={{ animationDuration: "4s" }}
             >
-              <span className="text-3xl md:text-4xl drop-shadow-md">🎮</span>
+              {renderPreset("gamepad", "w-8 h-8 md:w-10 md:h-10 drop-shadow-md")}
             </div>
             <div
-              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-cyan-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-cyan-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg text-cyan-400"
               style={{ animationDelay: "0.2s", animationDuration: "5s" }}
             >
-              <span className="text-3xl md:text-4xl drop-shadow-md">🧠</span>
+              {renderPreset("brain", "w-8 h-8 md:w-10 md:h-10 drop-shadow-md")}
             </div>
             <div
-              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-pink-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl glass-panel shadow-lg shadow-pink-500/20 flex flex-col items-center justify-center transition-transform hover:scale-110 duration-500 animate-bounce border border-white/10 bg-white/5 backdrop-blur-lg text-pink-400"
               style={{ animationDelay: "0.5s", animationDuration: "4.5s" }}
             >
-              <span className="text-3xl md:text-4xl drop-shadow-md">❌</span>
+              {renderPreset("x", "w-8 h-8 md:w-10 md:h-10 drop-shadow-md")}
             </div>
           </div>
 
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-lg font-medium text-slate-300/70 mb-4 shadow-xl">
-              Made with ❤️ in Bharat{" "}
+              Made with {renderPreset("heart", "w-5 h-5 text-rose-500 inline fill-rose-500 animate-pulse")} in Bharat{" "}
               <div className="w-6 h-4 rounded overflow-hidden shadow-lg border border-white/10">
                 <div className="h-1/3 bg-[#FF9933]"></div>
 

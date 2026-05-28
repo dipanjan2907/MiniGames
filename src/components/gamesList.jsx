@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import bgImage from "../assets/bg.webp";
 import PageTransition from "./pageTransition";
+import { renderPreset } from "./presets";
 
 const GamesList = () => {
   const navigate = useNavigate();
@@ -10,25 +11,25 @@ const GamesList = () => {
     {
       name: "Memory Game",
       path: "/memoryGame1",
-      icon: "🧠",
+      icon: "brain",
       desc: "Train your visual memory",
     },
     {
       name: "Tic Tac Toe",
       path: "/tic-tac-toe",
-      icon: "❌",
+      icon: "x",
       desc: "Classic strategy challenge",
     },
     {
       name: "Flash Memory",
       path: "/flash-memory",
-      icon: "⚡",
+      icon: "zap",
       desc: "Speed-reading retention test",
     },
     {
       name: "Chroma Clash",
       path: "/chroma-clash",
-      icon: "🎨",
+      icon: "palette",
       desc: "Stroop effect color challenge",
     },
   ];
@@ -85,8 +86,8 @@ const GamesList = () => {
                     "transform, background-color, border-color, box-shadow",
                 }}
               >
-                <div className="text-6xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 ease-out z-10 drop-shadow-md">
-                  {game.icon}
+                <div className="w-16 h-16 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 ease-out z-10 drop-shadow-md text-white">
+                  {renderPreset(game.icon, "w-full h-full")}
                 </div>
 
                 <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-white mb-3 z-10 drop-shadow-sm">
