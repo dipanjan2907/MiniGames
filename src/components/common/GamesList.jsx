@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import bgImage from "../assets/bg.webp";
-import PageTransition from "./pageTransition";
-import { renderPreset } from "./presets";
+import bgImage from "../../assets/bg.webp";
+import PageTransition from "./PageTransition";
+import { renderPreset } from "./Presets";
 
 const GamesList = () => {
   const navigate = useNavigate();

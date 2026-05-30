@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import BackButton from "./backButton";
-import PageTransition from "./pageTransition";
+import BackButton from "../common/BackButton";
+import PageTransition from "../common/PageTransition";
 
 const generateSequence = (level, mode) => {
   let chars = "abcdefghijklmnopqrstuvwxyz";
