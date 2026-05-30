@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import PageTransition from "./pageTransition";
-import IndianFlag from "./indianFlag";
-import { renderPreset } from "./presets";
+import PageTransition from "../common/PageTransition";
+import IndianFlag from "../common/IndianFlag";
+import { renderPreset } from "../common/Presets";
 
 const FloatingSymbols = () => {
   const symbols = [

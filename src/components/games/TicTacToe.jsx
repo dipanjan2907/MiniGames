@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BackButton from "./backButton";
-import PageTransition from "./pageTransition";
+import BackButton from "../common/BackButton";
+import PageTransition from "../common/PageTransition";
 
 const TicTacToe = () => {
   const [gameMode, setGameMode] = useState("player"); // "computer" or "player"

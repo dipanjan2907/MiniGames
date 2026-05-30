@@ -2,12 +2,12 @@ import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
-import LandingPage from "./components/landingPage";
-import MemoryGame1 from "./components/memoryGame1";
-import FlashMemoryGame from "./components/flashMemoryGame";
-import AllGames from "./components/gamesList";
-import TicTacToe from "./components/ticTacToe";
-import ChromaClash from "./components/chromaClash";
+import LandingPage from "./components/layout/LandingPage";
+import MemoryGame1 from "./components/games/MemoryGame";
+import FlashMemoryGame from "./components/games/FlashMemoryGame";
+import AllGames from "./components/common/GamesList";
+import TicTacToe from "./components/games/TicTacToe";
+import ChromaClash from "./components/games/ChromaClash";
 function App() {
   const location = useLocation();
 
