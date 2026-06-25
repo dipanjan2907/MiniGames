@@ -8,6 +8,7 @@ import FlashMemoryGame from "./components/games/FlashMemoryGame";
 import AllGames from "./components/common/GamesList";
 import TicTacToe from "./components/games/TicTacToe";
 import ChromaClash from "./components/games/ChromaClash";
+import ReactionSpeed from "./components/games/ReactionSpeed";
 function App() {
   const location = useLocation();
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/flash-memory" element={<FlashMemoryGame />} />
           <Route path="/tic-tac-toe" element={<TicTacToe />} />
           <Route path="/chroma-clash" element={<ChromaClash />} />
+          <Route path="/reaction-speed" element={<ReactionSpeed />} />
         </Routes>
       </AnimatePresence>
       <Analytics />

@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "../common/PageTransition";
-import IndianFlag from "../common/IndianFlag";
 import { renderPreset } from "../common/Presets";
 
 const FloatingSymbols = () => {
